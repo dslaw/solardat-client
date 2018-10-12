@@ -1,0 +1,9 @@
+language: python
+python: 3.6
+install:
+  - pip install -r requirements.txt -r requirements-dev.txt
+script:
+  - flake8 --config=setup.cfg
+  - mypy --config=setup.cfg solardat/
+  - cat report/*
+  - python -m pytest --verbose tests/
