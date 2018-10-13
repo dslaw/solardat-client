@@ -4,8 +4,6 @@ import requests
 
 
 BASE_URL = "http://solardat.uoregon.edu"
-ARCHIVAL_PATH = "SelectArchival.html"
-LIST_FILES_PATH = "cgi-bin/ShowArchivalFiles.cgi"
 
 
 class _ResponseCache(object):
@@ -38,8 +36,6 @@ class _ResponseCache(object):
         return cached_response
 
 _cache = _ResponseCache()
-_cache[ARCHIVAL_PATH] = None
-_cache[LIST_FILES_PATH] = None
 
 def dispatch(method: str, path: str, **kwds) -> Response:  # noqa: E501
     if method not in ("GET", "POST"):

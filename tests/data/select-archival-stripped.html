@@ -1,0 +1,279 @@
+<html>
+
+<!-- ====================================================================== --> 
+<!-- University of Oregon -->
+<!-- Solar Radiation Monitoring Laboratory -->
+<!-- All contents copyright (C) 2017, all rights reserved. --> 
+<!-- contact: fev@uoregon.edu -->
+<!-- ====================================================================== --> 
+
+<head>
+</head>
+
+<body>
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <!-- SCAN COLUMN LINKS -->
+    <td width="120" valign="TOP"></td>
+
+    <!-- GUTTER --> 
+    <td width="30">
+      <img src="pixel.gif" alt="" width="1" height="1"></td>
+
+    <!-- TEXT COLUMN --> 
+    <td width="385" valign="TOP">
+
+      <font face="ARIAL, GENEVA" color="#006699"><b>Select archival files</b></font><br>
+
+      <form action="http://solardat.uoregon.edu/cgi-bin/ShowArchivalFiles.cgi" method="POST">
+
+      <input type="HIDDEN" name="CalledFrom" value="MONTH_BLOCK">
+
+      <font face="ARIAL, GENEVA" color="#006699">Step 1&#151;Specify stations</font><br>
+      <img src="pixel.gif" alt="" width="1" height="1" vspace="4"><br>
+
+      <table cellpadding="0" cellspacing="0" border="0">
+
+      <tr>
+        <td width="385" colspan="5">Idaho<br>
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"></td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Aberdeen"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Aberdeen</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Boise"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Boise</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Challis"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Challis</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Coeur d'Alene"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Coeur d'Alene</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Parma"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Parma</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Picabo"></td>
+       <td width="160" valign="TOP" bgcolor="#FFFFCC">Picabo</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Twin Falls"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Twin Falls</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">&#160;</td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">&#160;</td>
+        </tr>
+      <tr>
+        <td width="385" colspan="5">
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"><br>Montana<br>
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"></td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Dillon"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Dillon</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">&#160;</td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">&#160;</td>
+         </tr>
+      <tr>
+        <td width="385" colspan="5">
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"><br>Oregon<br>
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"></td>
+          </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Ashland"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Ashland</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Balzhiser & Hubbard (PV)"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Balzhiser & Hubbard (PV)</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Bend"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Bend</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Bend (PV)"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Bend (PV)</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Burns"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Burns</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Cannon Beach (PV)"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Cannon Beach (PV)</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Christmas Valley"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Christmas Valley</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Coos Bay"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Coos Bay</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Corvallis"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Corvallis</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Eugene"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Eugene</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Forest Grove"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Forest Grove</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Grants Pass (PV)"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Grants Pass (PV)</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Hermiston"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Hermiston</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Hood River"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Hood River</td>
+        </tr>
+      <tr>
+       <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Kalapuya HS"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Kalapuya HS</td>
+		<td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Klamath Falls"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Klamath Falls</td>
+		</tr>
+	<tr>
+		<td width="25">&#160;</td>
+		<td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Klamath Falls (PV)"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Klamath Falls (PV)</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="La Grande"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">La Grande</td>
+		</tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Madras"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Madras</td>
+         <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Medford"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Medford</td>
+       </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Portland"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Portland</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Portland (PV)"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Portland (PV)</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Salem (PV)"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Salem (PV)</td>
+         <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Sheldon Village"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Sheldon Village</td>
+       </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Silver Lake"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Silver Lake</td>
+         <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="UO Solar Awning"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">UO Solar Awning</td>
+       </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Whitehorse Ranch"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Whitehorse Ranch</td>
+         <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Willamette High School"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Willamette High School</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">&#160;</td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">&#160;</td>
+        </tr>
+
+      <tr>
+        <td width="385" colspan="5">
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"><br>Utah<br>
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"></td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Moab"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Moab</td>
+        <td width="20" bgcolor="#FFFFCC">&#160;</td>
+        <td width="160" bgcolor="#FFFFCC">&#160;</td>
+        </tr>
+      <tr>
+        <td width="385" colspan="5">
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"><br>Washington<br>
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"></td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Cheney"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Cheney</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">&#160;</td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Richland</td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Seattle"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Seattle</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Seattle_UW"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Seattle UW</td>
+        </tr>
+      <tr>
+        <td width="385" colspan="5">
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"><br>Wyoming<br>
+          <img src="pixel.gif" alt="" width="1" height="1" vspace="2"></td>
+        </tr>
+      <tr>
+        <td width="25">&#160;</td>
+        <td width="20" valign="TOP" bgcolor="#FFFFCC">
+          <input type="CHECKBOX" name="Green River"></td>
+        <td width="160" valign="TOP" bgcolor="#FFFFCC">Green River</td>
+        <td width="20" bgcolor="#FFFFCC">&#160;</td>
+        <td width="160" bgcolor="#FFFFCC">&#160;</td>
+        </tr>
+      <tr>
+        <td width="385" colspan="5"><img src="pixel.gif" alt="" width="1" height="1"
+          vspace="4"></td></tr>
+
+      </table>
+      </form></td></tr>
+</table>
+</body>
+</html>

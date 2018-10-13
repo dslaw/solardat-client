@@ -62,11 +62,6 @@ class TestResponseCache(object):
         out = cache.get_etag(self.path)
         assert out is response
 
-class TestCacheSetup(object):
-    def test_paths_in_cache(self):
-        assert "SelectArchival.html" in _cache._cache
-        assert "cgi-bin/ShowArchivalFiles.cgi" in _cache._cache
-
 def callback(request):
     # `requests` strips out headers with null keys.
     etag = request.headers.get("If-None-Match")
