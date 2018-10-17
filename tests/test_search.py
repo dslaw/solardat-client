@@ -8,7 +8,7 @@ from solardat.search import (
     LIST_FILES_PATH,
     extract_rel_links,
     extract_stations,
-    _bodyis_download_url,
+    is_download_url,
     make_search_form,
     rel_links_page,
     stations_page,

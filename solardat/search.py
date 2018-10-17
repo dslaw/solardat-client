@@ -55,8 +55,8 @@ def extract_rel_links(page: bytes) -> Dict[str, List[str]]:
     if not tables:
         raise RuntimeError("Unable to find links")
 
-    table = tables[0]
-    table_body = table[0]
+    # NB: The website does not wrap the rows in a `tbody` tag.
+    body = tables[0]
 
     # Stations are "delimited" by having a full table width row
     # with the station name in it. All rows after are associated
@@ -65,7 +65,7 @@ def extract_rel_links(page: bytes) -> Dict[str, List[str]]:
     subheading_xpath = 'td[@align="CENTER" and @colspan="3"]'
     all_links: DefaultDict[str, List[str]] = defaultdict(list)
     station = None
-    for row in table_body:
+    for row in body:
         # Check that the row contains the station subheader.
         subheadings = row.xpath(subheading_xpath)
         if subheadings:
