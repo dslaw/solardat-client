@@ -8,7 +8,7 @@ from solardat.search import (
     LIST_FILES_PATH,
     extract_rel_links,
     extract_stations,
-    is_download_url,
+    _bodyis_download_url,
     make_search_form,
     rel_links_page,
     stations_page,
@@ -21,13 +21,14 @@ def select_content():
         content = fh.read().encode()
     return content
 
+
 @pytest.fixture(scope="module")
 def listing_content():
     with open("tests/data/eugene-silver-lake-stripped.html") as fh:
         content = fh.read().encode()
     return content
 
-
+@pytest.mark.usefixtures("clear_response_cache")
 class TestStations(object):
     @responses.activate
     def test_request(self, select_content):
@@ -66,6 +67,7 @@ class TestIsDownloadURL(object):
     def test_matches(self, path, expected):
         assert is_download_url(path) == expected
 
+@pytest.mark.usefixtures("clear_response_cache")
 class TestArchivalSearch(object):
     stations = ("Eugene", "Silver Lake")
     start = date(2016, 1, 1)

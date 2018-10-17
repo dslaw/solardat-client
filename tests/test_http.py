@@ -62,6 +62,12 @@ class TestResponseCache(object):
         out = cache.get_etag(self.path)
         assert out is response
 
+    def test_clear_cache(self):
+        cache, _ = populated_cache()
+
+        cache.clear()
+        assert not cache._cache
+
 def callback(request):
     # `requests` strips out headers with null keys.
     etag = request.headers.get("If-None-Match")

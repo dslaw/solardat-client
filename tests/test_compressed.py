@@ -37,6 +37,7 @@ def zipped_data():
     buffer.close()
 
 
+@pytest.mark.usefixtures("clear_response_cache")
 class TestPrepareRequest(object):
     def test_make_zipfile_form(self, listing_page):
         expected = {
@@ -60,6 +61,7 @@ class TestPrepareRequest(object):
         page = prepare_zipfile(None)
         assert page == prepared_download_page
 
+@pytest.mark.usefixtures("clear_response_cache")
 class TestDownload(object):
     @pytest.mark.parametrize("path, expected", [
         ("help/AdditionalInformation.html", False),

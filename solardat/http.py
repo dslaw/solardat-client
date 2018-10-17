@@ -20,6 +20,9 @@ class _ResponseCache(object):
     def __setitem__(self, path: str, value: Optional[Response]) -> None:
         self._cache[path] = value
 
+    def clear(self) -> None:
+        self._cache = {}
+
     def get_etag(self, path: str) -> Optional[str]:
         cached_response = self[path]
         if cached_response is None:
