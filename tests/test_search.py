@@ -123,7 +123,7 @@ class TestArchivalSearch(object):
 
     def test_external(self):
         expected_len = 2
-        expected_stations = set(self.stations)
+        expected_stations = {"Eugene, OR", "Silver Lake, OR"}
         expected_num_links = 41 + 20  # Eugene, Silver Lake
 
         content = rel_links_page(self.start, self.end, self.stations)
