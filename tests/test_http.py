@@ -6,9 +6,6 @@ import responses
 from solardat.http import _ResponseCache, _cache, BASE_URL, dispatch
 
 
-def empty_cache():
-    return _ResponseCache(), None
-
 def populated_cache():
     cache = _ResponseCache()
     response = Response()
@@ -36,10 +33,10 @@ class TestResponseCache(object):
         assert out is response
 
     def test_getitem_missing(self):
-        cache, response = empty_cache()
+        cache = _ResponseCache()
 
         out = cache[self.path]
-        assert out is response
+        assert out is None
         # Attempted access adds as null.
         assert cache._cache[self.path] is None
 
@@ -54,13 +51,22 @@ class TestResponseCache(object):
         cache, response = populated_cache()
 
         out = cache.get_etag(self.path)
-        assert out is "etag"
+        assert out == "etag"
 
     def test_get_etag_missing(self):
-        cache, response = empty_cache()
+        cache = _ResponseCache()
 
         out = cache.get_etag(self.path)
-        assert out is response
+        assert out is None
+
+    def test_get_etag_missing_header(self):
+        cache = _ResponseCache()
+        response = Response()
+        response.headers = {}
+        cache[self.path] = response
+
+        out = cache.get_etag(self.path)
+        assert out is None
 
     def test_clear_cache(self):
         cache, _ = populated_cache()

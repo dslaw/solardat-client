@@ -27,7 +27,7 @@ class _ResponseCache(object):
         cached_response = self[path]
         if cached_response is None:
             return None
-        return cached_response.headers["ETag"]
+        return cached_response.headers.get("ETag")
 
     def check_response(self, path: str, response: Response) -> Response:
         if response.status_code != 304:
