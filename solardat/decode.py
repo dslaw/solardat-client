@@ -4,12 +4,13 @@ See http://solardat.uoregon.edu/ArchivalFiles.html for a description.
 """
 
 from collections import OrderedDict
+from datetime import datetime
 from typing import Dict, Iterator, List, Tuple, Union
 import csv
 
 
-Num = Union[int, float]
-Row = Dict[str, Num]
+RowValue = Union[int, float, datetime]
+Row = Dict[str, RowValue]
 Readable = Iterator[str]
 
 
@@ -27,14 +28,22 @@ def parse_header(values: List[str]) -> Tuple[int, int, List[str]]:
 
     return int(station_id), int(year), columns
 
-def cast_row(record: Dict[str, str]) -> Row:
-    out: OrderedDict[str, Num] = OrderedDict()
+def parse_timestamp(timestamp: int) -> Tuple[int, int]:
+    hours, minutes = divmod(timestamp, 100)
+    return hours, minutes
 
-    # Day of year and elapsed time since last measurement. The
-    # latter has units (e.g. second/minute/hour) implicit to
-    # the file.
-    for column in FIRST_COLUMNS:
-        out[column] = int(record[column])
+def cast_row(record: Dict[str, str], year: int) -> Row:
+    out: OrderedDict[str, RowValue] = OrderedDict()
+
+    # Include date information with the interval end time.
+    doy = record["doy"]
+    timestamp = int(record["ending_time"])
+    hours, minutes = parse_timestamp(timestamp)
+    out["ending_time"] = (
+        datetime
+        .strptime(f"{year}-{doy}", "%Y-%j")
+        .replace(hour=hours, minute=minutes)
+    )
 
     keys = list(record)[2:]
     for measure, flag in zip(keys[0::2], keys[1::2]):
@@ -44,12 +53,12 @@ def cast_row(record: Dict[str, str]) -> Row:
 
     return out
 
-def parse_archival(stream: Readable) -> Tuple[int, int, List[Row]]:
+def parse_archival(stream: Readable) -> Tuple[int, List[Row]]:
     header = next(stream)
     header_values = header.split(DELIMITER)
     station_id, year, columns = parse_header(header_values)
 
     reader = csv.DictReader(stream, fieldnames=columns, delimiter=DELIMITER)
-    records = list(map(cast_row, reader))
+    records = map(lambda record: cast_row(record, year), reader)
 
-    return station_id, year, records
+    return station_id, list(records)

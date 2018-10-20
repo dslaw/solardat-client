@@ -1,8 +1,14 @@
 from collections import OrderedDict
+from datetime import datetime
 from io import StringIO
 import pytest
 
-from solardat.decode import cast_row, parse_header, parse_archival
+from solardat.decode import (
+    cast_row,
+    parse_archival,
+    parse_header,
+    parse_timestamp,
+)
 
 
 @pytest.fixture
@@ -46,42 +52,62 @@ class TestParseHeader(object):
         _, _, columns = parse_header(header_values)
         assert columns == expected_columns
 
+class TestParseTimestamp(object):
+    @pytest.mark.parametrize("timestamp, hours, minutes", [
+        (200, 2, 0),
+        (1500, 15, 0),
+        (459, 4, 59),
+        (1859, 18, 59),
+        (130, 1, 30),
+        (1030, 10, 30),
+        (15, 0, 15),
+    ], ids=[
+        "Start of hour, single digit hour",
+        "Start of hour, double digit hour",
+        "End of hour, single digit hour",
+        "End of hour, double digit hour",
+        "Middle of hour, single digit hour",
+        "Middle of hour, double digit hour",
+        "Middle of hour, no hour digit",
+    ])
+    def test_parses(self, timestamp, hours, minutes):
+        expected = (hours, minutes)
+        assert parse_timestamp(timestamp) == expected
+
 class TestCastRow(object):
     def test_casts_values(self):
+        year = 2010
         record = OrderedDict([
             ("doy", "10"),
-            ("ending_time", "60"),
+            ("ending_time", "50"),
             ("1001", "1.23"),
             ("1001_FLAG", "9"),
             ("3001", "1"),
             ("3001_FLAG", "0"),
         ])
         expected = OrderedDict([
-            ("doy", 10),
-            ("ending_time", 60),
+            ("ending_time", datetime(year, 1, 10, 0, 50)),
             ("1001", 1.23),
             ("1001_FLAG", 9),
             ("3001", 1.),
             ("3001_FLAG", 0),
         ])
 
-        out = cast_row(record)
+        out = cast_row(record, year)
         assert out == expected
 
 class TestParseArchival(object):
     def test_metadata(self, buffer):
         expected_station_id = 94249
-        expected_year = 2016
 
-        station_id, year, _ = parse_archival(buffer)
+        station_id, _ = parse_archival(buffer)
 
         assert station_id == expected_station_id
-        assert year == expected_year
 
     def test_records(self, buffer):
         expected_len = 100
         expected_columns = {
-            "doy", "ending_time",
+            "ending_time",
             "1001", "1001_FLAG",
             "2011", "2011_FLAG",
             "3001", "3001_FLAG",
@@ -89,7 +115,7 @@ class TestParseArchival(object):
             "9301", "9301_FLAG",
         }
 
-        _, _, records = parse_archival(buffer)
+        _, records = parse_archival(buffer)
         assert len(records) == expected_len
         assert all(set(record) == expected_columns for record in records)
 
