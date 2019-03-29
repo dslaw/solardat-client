@@ -21,12 +21,12 @@ def select_content():
         content = fh.read().encode()
     return content
 
-
 @pytest.fixture(scope="module")
 def listing_content():
     with open("tests/data/eugene-silver-lake-stripped.html") as fh:
         content = fh.read().encode()
     return content
+
 
 @pytest.mark.usefixtures("clear_response_cache")
 class TestStations(object):
@@ -123,14 +123,11 @@ class TestArchivalSearch(object):
 
     def test_external(self):
         expected_len = 2
-        expected_stations = {"Eugene, OR", "Silver Lake, OR"}
-        expected_num_links = 41 + 20  # Eugene, Silver Lake
+        expected_counts = {"Eugene, OR": 40, "Silver Lake, OR": 20}
 
         content = rel_links_page(self.start, self.end, self.stations)
         links = extract_rel_links(content)
+        link_counts = {key: len(value) for key, value in links.items()}
 
         assert len(links) == expected_len
-        assert set(links) == expected_stations
-
-        num_links = sum(map(len, links.values()))
-        assert num_links == expected_num_links
+        assert link_counts == expected_counts
