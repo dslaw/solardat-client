@@ -4,6 +4,7 @@ from io import StringIO
 import pytest
 
 from solardat.decode import (
+    add_hours_minutes,
     cast_row,
     parse_archival,
     parse_header,
@@ -73,6 +74,24 @@ class TestParseTimestamp(object):
     def test_parses(self, timestamp, hours, minutes):
         expected = (hours, minutes)
         assert parse_timestamp(timestamp) == expected
+
+class TestAddHoursMinutes(object):
+    def test_adjusts_for_midnight(self):
+        ending = datetime(2000, 1, 1)
+        expected = datetime(2000, 1, 2, 0, 0)
+
+        out = add_hours_minutes(ending, hours=24, minutes=0)
+        assert out == expected
+
+    @pytest.mark.parametrize("hours, minutes, expected", [
+        (5, 0, datetime(2000, 1, 1, 5, 0)),
+        (0, 1, datetime(2000, 1, 1, 0, 1)),
+        (5, 1, datetime(2000, 1, 1, 5, 1)),
+    ], ids=["hours", "minutes", "hours and minutes"])
+    def test_adds_time(self, hours, minutes, expected):
+        ending = datetime(2000, 1, 1)
+        out = add_hours_minutes(ending, hours, minutes)
+        assert out == expected
 
 class TestCastRow(object):
     def test_casts_values(self):

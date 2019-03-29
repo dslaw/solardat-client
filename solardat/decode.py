@@ -4,7 +4,7 @@ See http://solardat.uoregon.edu/ArchivalFiles.html for a description.
 """
 
 from collections import OrderedDict
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Dict, Iterator, List, Tuple, Union
 import csv
 
@@ -32,6 +32,13 @@ def parse_timestamp(timestamp: int) -> Tuple[int, int]:
     hours, minutes = divmod(timestamp, 100)
     return hours, minutes
 
+def add_hours_minutes(ending: datetime, hours: int, minutes: int) -> datetime:
+    # 24:00 indicates that the interval ends on midnight of the next day.
+    if hours == 24:
+        ending = ending + timedelta(days=1)
+        hours = 0
+    return ending.replace(hour=hours, minute=minutes)
+
 def cast_row(record: Dict[str, str], year: int) -> Row:
     out: OrderedDict[str, RowValue] = OrderedDict()
 
@@ -39,11 +46,8 @@ def cast_row(record: Dict[str, str], year: int) -> Row:
     doy = record["doy"]
     timestamp = int(record["ending_time"])
     hours, minutes = parse_timestamp(timestamp)
-    out["ending_time"] = (
-        datetime
-        .strptime(f"{year}-{doy}", "%Y-%j")
-        .replace(hour=hours, minute=minutes)
-    )
+    ending_date = datetime.strptime(f"{year}-{doy}", "%Y-%j")
+    out["ending_time"] = add_hours_minutes(ending_date, hours, minutes)
 
     keys = list(record)[2:]
     for measure, flag in zip(keys[0::2], keys[1::2]):
