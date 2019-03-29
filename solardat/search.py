@@ -11,14 +11,29 @@ ARCHIVAL_PATH = "SelectArchival.html"
 LIST_FILES_PATH = "cgi-bin/ShowArchivalFiles.cgi"
 
 
-def stations_page() -> bytes:
-    response = dispatch("GET", ARCHIVAL_PATH)
-    return response.content
+def fetch_stations() -> List[str]:
+    """List stations that can be searched for archival data.
 
-def extract_stations(page: bytes) -> List[str]:
+    Returns
+    -------
+    stations : List[str]
+        Names of available stations.
+
+    Examples
+    --------
+    >>> stations = fetch_stations()
+    >>> stations
+    ['Aberdeen',
+     'Boise',
+     'Challis',
+     ...]
+    """
+
+    response = dispatch("GET", ARCHIVAL_PATH)
+    tree = html.fromstring(response.content)
     xpath = '//table/tr/td/input[@type="CHECKBOX"]/following::td[1]'
-    tree = html.fromstring(page)
-    return [ele.text for ele in tree.xpath(xpath)]
+    stations = [ele.text for ele in tree.xpath(xpath)]
+    return stations
 
 def make_search_form(start: date, end: date, stations: List[str]) -> Dict[str, str]:
     selected_stations = {station: "on" for station in stations}

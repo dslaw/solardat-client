@@ -1,5 +1,3 @@
-from io import BytesIO
-from zipfile import ZipFile
 import pytest
 import responses
 
@@ -9,7 +7,6 @@ from solardat.compressed import (
     make_zipfile_form,
     prepare_zipfile,
     zipfile_link,
-    zipped,
 )
 
 
@@ -24,17 +21,6 @@ def prepared_download_page():
     with open("tests/data/prepared-download-stripped.html") as fh:
         page = fh.read().encode()
     return page
-
-@pytest.fixture(scope="module")
-def zipped_data():
-    filenames = ("a.txt", "b.txt")
-    buffer = BytesIO()
-    with ZipFile(buffer, mode="w") as zf:
-        for filename in filenames:
-            zf.writestr(filename, "TEST")
-
-    yield buffer.getvalue()
-    buffer.close()
 
 
 @pytest.mark.usefixtures("clear_response_cache")
@@ -74,15 +60,3 @@ class TestDownload(object):
         expected_url = f"{BASE_URL}/download/temp/33729216.zip"
         url = zipfile_link(prepared_download_page)
         assert url == expected_url
-
-    @responses.activate
-    def test_download(self, zipped_data):
-        expected_len = 2
-        expected_data = "TEST"
-
-        path = "download/temp/12345.zip"
-        responses.add(responses.GET, f"{BASE_URL}/{path}", body=zipped_data)
-
-        extracted = list(zipped(path))
-        assert len(extracted) == expected_len
-        assert all(data == expected_data for data in extracted)

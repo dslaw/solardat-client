@@ -7,11 +7,10 @@ from solardat.search import (
     ARCHIVAL_PATH,
     LIST_FILES_PATH,
     extract_rel_links,
-    extract_stations,
+    fetch_stations,
     is_download_url,
     make_search_form,
     rel_links_page,
-    stations_page,
 )
 
 
@@ -30,34 +29,23 @@ def listing_content():
 
 @pytest.mark.usefixtures("clear_response_cache")
 class TestStations(object):
+    # NB: One is subtracted as "Richland" is displayed,
+    #     but not selectable.
+    n_expected = 7 + 1 + 28 + 1 + 4 + 1 - 1
+
     @responses.activate
-    def test_request(self, select_content):
+    def test_gets_stations(self, select_content):
         responses.add(
             responses.GET,
             f"{BASE_URL}/{ARCHIVAL_PATH}",
             body=select_content
         )
-        content = stations_page()
-        assert content == select_content
-
-    def test_extracts(self, select_content):
-        # NB: One is subtracted as "Richland" is displayed,
-        #     but not selectable.
-        expected_len = 7 + 1 + 28 + 1 + 4 + 1 - 1
-
-        stations = extract_stations(select_content)
-        assert len(stations) == expected_len
-        # One example.
-        assert "Eugene" in stations
+        stations = fetch_stations()
+        assert len(stations) == self.n_expected
 
     def test_external(self):
-        expected_len = 7 + 1 + 28 + 1 + 4 + 1 - 1
-
-        content = stations_page()
-        stations = extract_stations(content)
-        assert len(stations) == expected_len
-        # One example.
-        assert "Eugene" in stations
+        stations = fetch_stations()
+        assert len(stations) == self.n_expected
 
 class TestIsDownloadURL(object):
     @pytest.mark.parametrize("path, expected", [

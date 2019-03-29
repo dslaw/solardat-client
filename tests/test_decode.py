@@ -9,6 +9,7 @@ from solardat.decode import (
     parse_archival,
     parse_header,
     parse_timestamp,
+    read_raw,
 )
 
 
@@ -117,11 +118,9 @@ class TestCastRow(object):
 
 class TestParseArchival(object):
     def test_metadata(self, buffer):
-        expected_station_id = 94249
-
+        expected = 94249
         station_id, _ = parse_archival(buffer)
-
-        assert station_id == expected_station_id
+        assert station_id == expected
 
     def test_records(self, buffer):
         expected_len = 100
@@ -143,3 +142,24 @@ class TestParseArchival(object):
             out = parse_archival(fh)
 
         assert out
+
+class TestReadRaw(object):
+    def test_metadata(self, archival_data):
+        expected = 94249
+        station_id, _ = read_raw(archival_data)
+        assert station_id == expected
+
+    def test_records(self, archival_data):
+        expected_len = 100
+        expected_columns = {
+            "ending_time",
+            "1001", "1001_FLAG",
+            "2011", "2011_FLAG",
+            "3001", "3001_FLAG",
+            "1961", "1961_FLAG",
+            "9301", "9301_FLAG",
+        }
+
+        _, records = read_raw(archival_data)
+        assert len(records) == expected_len
+        assert all(set(record) == expected_columns for record in records)

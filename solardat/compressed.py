@@ -1,7 +1,5 @@
-from io import BytesIO
 from lxml import html
-from typing import Dict, Generator
-from zipfile import ZipFile
+from typing import Dict
 import re
 
 from .http import dispatch
@@ -39,16 +37,3 @@ def zipfile_link(page: bytes) -> str:
             return ref
     else:
         raise ValueError("Page did not contain a zipfile link")
-
-# XXX: These files aren't associated with stations. To do so,
-#      you'd have to get the association from the search results
-#      page, invert station to filenames mapping and look up
-#      the station from the filename in the zipfile.
-def zipped(path: str) -> Generator[str, None, None]:
-    response = dispatch("GET", path)
-
-    with BytesIO(response.content) as buffer:
-        with ZipFile(buffer) as zf:
-            for filename in zf.namelist():
-                data = zf.read(filename).decode()
-                yield data

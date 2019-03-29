@@ -5,6 +5,7 @@ See http://solardat.uoregon.edu/ArchivalFiles.html for a description.
 
 from collections import OrderedDict
 from datetime import datetime, timedelta
+from io import StringIO
 from typing import Dict, Iterator, List, Tuple, Union
 import csv
 
@@ -57,12 +58,63 @@ def cast_row(record: Dict[str, str], year: int) -> Row:
 
     return out
 
-def parse_archival(stream: Readable) -> Tuple[int, List[Row]]:
-    header = next(stream)
+def parse_archival(handle: Readable) -> Tuple[int, List[Row]]:
+    """Parse archival file data from a file-like object.
+
+    For the format of the returned data, see :func:`~solardat.decode.read_raw`.
+
+    Parameters
+    ----------
+    handle : Iterator[str]
+        A file-like object used to iterate over the archival file
+        data.
+
+    Returns
+    -------
+    station_id, rows : Tuple[int, List[OrderedDict]]
+        The archival data, as well as the station's id.
+
+    Examples
+    --------
+    >>> with open("EUPQ1801.txt", "r") as fh:
+    >>>     station_id, rows = parse_archival(fh)
+    """
+
+    header = next(handle)
     header_values = header.split(DELIMITER)
     station_id, year, columns = parse_header(header_values)
 
-    reader = csv.DictReader(stream, fieldnames=columns, delimiter=DELIMITER)
+    reader = csv.DictReader(handle, fieldnames=columns, delimiter=DELIMITER)
     records = map(lambda record: cast_row(record, year), reader)
 
     return station_id, list(records)
+
+def read_raw(contents: str) -> Tuple[int, List[Row]]:
+    """Marshal the contents of an archival data file.
+
+    The returned data uses the data element numbers as field
+    names, where appropriate. Quality control flag field names
+    are data element numbers with "_FLAG" appended, where the
+    data element number indicates the measurement field that the
+    flag corresponds to.
+
+    Parameters
+    ----------
+    contents: str
+        Archival data file contents as tab separated values.
+
+    Returns
+    -------
+    station_id, rows : Tuple[int, List[OrderedDict]]
+        The archival data, as well as the station's id.
+
+    Examples
+    --------
+    >>> url = "http://solardat.uoregon.edu/download/Archive/EUPQ1801.txt"
+    >>> response = requests.get(url)
+    >>> station_id, rows = read_raw(response.text)
+    """
+
+    with StringIO(contents) as buffer:
+        station_id, rows = parse_archival(buffer)
+    return station_id, rows
