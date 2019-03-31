@@ -1,9 +1,17 @@
+dist: xenial
 language: python
-python: 3.6
+
+matrix:
+  include:
+    - python: 3.6
+      env: TOXENV=py36
+    - python: 3.7
+      env: TOXENV=py37
+    - python: 3.7
+      env: TOXENV=docs
+
 install:
-  - pip install -r requirements.txt -r requirements-dev.txt
+  - pip install tox
+
 script:
-  - flake8 --config=setup.cfg
-  - mypy --config=setup.cfg scripts/ solardat/
-  - cat report/*
-  - python -m pytest --verbose tests/
+  - tox
