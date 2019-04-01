@@ -22,12 +22,6 @@ def header_values():
         "3001", "0",
     ]
 
-@pytest.fixture(scope="module")
-def archival_data():
-    with open("tests/data/SIRO1604-example.txt") as fh:
-        data = fh.read()
-    return data
-
 @pytest.fixture
 def buffer(archival_data):
     with StringIO(archival_data) as data_buffer:

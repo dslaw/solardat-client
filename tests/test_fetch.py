@@ -15,49 +15,10 @@ from solardat.http import BASE_URL
 from solardat.search import LIST_FILES_PATH
 
 
-# Duplicated from `test_search.py`
-@pytest.fixture(scope="module")
-def listing_content():
-    with open("tests/data/eugene-silver-lake-stripped.html") as fh:
-        content = fh.read().encode()
-    return content
-
-# Duplicated from `test_decode.py`
-@pytest.fixture(scope="module")
-def archival_data():
-    with open("tests/data/SIRO1604-example.txt") as fh:
-        data = fh.read()
-    return data
-
-# Duplicated from `test_compressed.py`
-@pytest.fixture(scope="module")
-def prepared_download_page():
-    with open("tests/data/prepared-download-stripped.html") as fh:
-        page = fh.read().encode()
-    return page
-
-# Duplicated from `test_compressed.py`
-@pytest.fixture(scope="module")
-def zipped_filenames():
-    filenames = ("a.txt", "b.txt")
-    return filenames
-
-# Modified from `test_compressed.py`
-@pytest.fixture(scope="module")
-def zipped_data(zipped_filenames, archival_data):
-    buffer = BytesIO()
-    with ZipFile(buffer, mode="w") as zf:
-        for filename in zipped_filenames:
-            zf.writestr(filename, archival_data)
-
-    yield buffer.getvalue()
-    buffer.close()
-
-
 @pytest.mark.usefixtures("clear_response_cache")
 class TestFindFiles(object):
     @responses.activate
-    def test_mocked(self, listing_content):
+    def test_mocked(self, search_results_page):
         stations = ["Eugene", "Silver Lake"]
         start = date(2016, 1, 1)
         end = date(2016, 10, 1)
@@ -77,7 +38,7 @@ class TestFindFiles(object):
         responses.add(
             responses.POST,
             f"{BASE_URL}/{LIST_FILES_PATH}",
-            body=listing_content
+            body=search_results_page
         )
 
         filepaths = find_files(start, end, stations)
@@ -114,7 +75,7 @@ class TestFetchFile(object):
 @pytest.mark.usefixtures("clear_response_cache")
 class TestFindCompressed(object):
     @responses.activate
-    def test_mocked(self, listing_content, prepared_download_page):
+    def test_mocked(self, search_results_page, prepared_download_page):
         expected_path = f"download/temp/33729216.zip"
         stations = ["Silver Lake"]
         start = end = date(2018, 1, 1)
@@ -122,7 +83,7 @@ class TestFindCompressed(object):
         responses.add(
             responses.POST,
             f"{BASE_URL}/{LIST_FILES_PATH}",
-            body=listing_content
+            body=search_results_page
         )
         responses.add(
             responses.POST,
@@ -142,15 +103,27 @@ class TestFindCompressed(object):
         assert response.ok
         assert response.headers["Content-Type"] == "application/zip"
 
+def make_compressed(filestems, raw):
+    with BytesIO() as buffer:
+        with ZipFile(buffer, mode="w") as zf:
+            for filestem in filestems:
+                zf.writestr(f"{filestem}.txt", raw)
+
+        compressed = buffer.getvalue()
+
+    return compressed
+
 @pytest.mark.usefixtures("clear_response_cache")
 class TestFetchCompressed(object):
     @responses.activate
-    def test_mocked(self, zipped_filenames, zipped_data):
+    def test_mocked(self, archival_data):
+        expected_filestems = ("ABCD1604", "ABCD1605")
+        compressed = make_compressed(expected_filestems, archival_data)
         filepath = "download/temp/12345.zip"
-        responses.add(responses.GET, f"{BASE_URL}/{filepath}", body=zipped_data)
+        responses.add(responses.GET, f"{BASE_URL}/{filepath}", body=compressed)
 
         filestems, station_ids, contents = zip(*fetch_compressed(filepath))
-        assert filestems == ("a", "b")
+        assert filestems == expected_filestems
         assert all(station_id == 94249 for station_id in station_ids)
         assert all(len(rows) == 100 for rows in contents)
 

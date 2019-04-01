@@ -10,22 +10,9 @@ from solardat.compressed import (
 )
 
 
-@pytest.fixture(scope="module")
-def listing_page():
-    with open("tests/data/eugene-silver-lake-stripped.html") as fh:
-        page = fh.read().encode()
-    return page
-
-@pytest.fixture(scope="module")
-def prepared_download_page():
-    with open("tests/data/prepared-download-stripped.html") as fh:
-        page = fh.read().encode()
-    return page
-
-
 @pytest.mark.usefixtures("clear_response_cache")
 class TestPrepareRequest(object):
-    def test_make_zipfile_form(self, listing_page):
+    def test_make_zipfile_form(self, search_results_page):
         expected = {
             "FileList": "51557993",
             "FileType": "ZIP",
@@ -33,7 +20,7 @@ class TestPrepareRequest(object):
             "Submit": "Create+compressed+file",
         }
 
-        form = make_zipfile_form(listing_page)
+        form = make_zipfile_form(search_results_page)
         assert form == expected
 
     @responses.activate

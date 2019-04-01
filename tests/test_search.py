@@ -21,7 +21,7 @@ def select_content():
     return content
 
 @pytest.fixture(scope="module")
-def listing_content():
+def search_results_page():
     with open("tests/data/eugene-silver-lake-stripped.html") as fh:
         content = fh.read().encode()
     return content
@@ -77,17 +77,17 @@ class TestArchivalSearch(object):
         assert form == expected
 
     @responses.activate
-    def test_request(self, listing_content):
+    def test_request(self, search_results_page):
         responses.add(
             responses.POST,
             f"{BASE_URL}/{LIST_FILES_PATH}",
-            body=listing_content
+            body=search_results_page
         )
 
         content = rel_links_page(self.start, self.end, self.stations)
-        assert content == listing_content
+        assert content == search_results_page
 
-    def test_extracts(self, listing_content):
+    def test_extracts(self, search_results_page):
         expected = {
             "Eugene, OR": [
                 f"{BASE_URL}/download/Archive/EUPF1602.txt",
@@ -101,7 +101,7 @@ class TestArchivalSearch(object):
             ],
         }
 
-        links = extract_rel_links(listing_content)
+        links = extract_rel_links(search_results_page)
         assert links == expected
 
     def test_extracts_raises_if_no_table(self):
