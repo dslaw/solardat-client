@@ -31,9 +31,9 @@ class _ResponseCache(object):
 
     def check_response(self, path: str, response: Response) -> Response:
         if response.status_code != 304:
-            self._cache[path] = response
+            self[path] = response
             return response
-        cached_response = self._cache[path]
+        cached_response = self[path]
         if cached_response is None:
             raise RuntimeError
         return cached_response
