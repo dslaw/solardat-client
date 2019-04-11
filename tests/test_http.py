@@ -3,7 +3,7 @@ from requests.models import Response
 import pytest
 import responses
 
-from solardat.http import _ResponseCache, _cache, BASE_URL, dispatch
+from solardat.http import _ResponseCache, _cache, BASE_URL, add_etag, dispatch, make_url
 
 
 def populated_cache():
@@ -73,6 +73,20 @@ class TestResponseCache(object):
 
         cache.clear()
         assert not cache._cache
+
+class TestAddEtag(object):
+    def test_adds_etag(self, setup_cache):
+        headers = add_etag("test", {})
+        assert headers["If-None-Match"] == "etag"
+
+    def test_doesnt_modify_if_cached_response(self):
+        headers = add_etag("test", {})
+        assert headers == {}
+
+class TestMakeURL(object):
+    def test_appends_path(self):
+        path = "test"
+        assert make_url(path).endswith("/test")
 
 def callback(request):
     # `requests` strips out headers with null keys.

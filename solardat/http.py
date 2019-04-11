@@ -30,29 +30,37 @@ class _ResponseCache(object):
         return cached_response.headers.get("ETag")
 
     def check_response(self, path: str, response: Response) -> Response:
+        response.raise_for_status()
+
         if response.status_code != 304:
             self[path] = response
             return response
+
         cached_response = self[path]
         if cached_response is None:
+            # Should not occur if the cache is only mutated
+            # through this method.
             raise RuntimeError
         return cached_response
 
 _cache = _ResponseCache()
 
-def dispatch(method: str, path: str, **kwds) -> Response:  # noqa: E501
+def add_etag(path: str, headers: Dict[str, str]) -> Dict[str, str]:
+    etag = _cache.get_etag(path)
+    if etag is None:
+        return headers
+    return {**headers, "If-None-Match": etag}
+
+def make_url(path: str) -> str:
+    return f"{BASE_URL}/{path}"
+
+def dispatch(method: str, path: str, **kwds) -> requests.Response:
     if method not in ("GET", "POST"):
         raise ValueError
 
-    url = f"{BASE_URL}/{path}"
-    etag = _cache.get_etag(path)
+    headers = add_etag(path, kwds.get("headers", {}))
+    if headers:
+        kwds["headers"] = headers
 
-    kwds = kwds.copy()
-    kwds["headers"] = {
-        **kwds.get("headers", {}),
-        "If-None-Match": etag,
-    }
-
-    response = requests.request(method, url, **kwds)
-    response.raise_for_status()
+    response = requests.request(method, make_url(path), **kwds)
     return _cache.check_response(path, response)
