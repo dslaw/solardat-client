@@ -94,8 +94,8 @@ async def fetch_many(session: ClientSession, paths: Iterable[str], **kwds) -> Li
 
     Examples
     --------
-    >>> import asyncio
     >>> import aiohttp
+    >>> import asyncio
     >>>
     >>> async def driver(paths):
     ...     async with aiohttp.ClientSession() as session:

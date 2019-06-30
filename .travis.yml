@@ -15,3 +15,16 @@ install:
 
 script:
   - tox
+
+before_deploy:
+  - "touch .tox/html/.nojekyll"
+
+deploy:
+  provider: pages
+  target_branch: gh-pages
+  local_dir: .tox/html
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
+    condition: $TOXENV == docs
