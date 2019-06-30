@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Usage &mdash; solardat-client 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="solardat: A Python client for solar irradiance data" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> solardat-client
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#searching">Searching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filtering">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#downloading">Downloading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compressed-files">Compressed Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.search">Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.fetch">Fetch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.async_fetch">Async Fetch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.decode">Decode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.compressed">Compressed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.http">HTTP</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">solardat-client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="searching">
+<h2>Searching<a class="headerlink" href="#searching" title="Permalink to this headline">¶</a></h2>
+<p>Archival data files contain observations across multiple variables and
+instruments, for a single month and station. An open interval can be used to
+search across months, and one or more stations can be queried for directly.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">solardat</span> <span class="kn">import</span> <span class="n">find_files</span>
+
+<span class="c1"># Search for archival data from January thru February, 2018 at</span>
+<span class="c1"># the Eugene, Oregon station.</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">stations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Eugene&quot;</span><span class="p">]</span>
+<span class="n">search_results</span> <span class="o">=</span> <span class="n">find_files</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">stations</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The returned search results are the paths to archival data files on the server,
+organized by station. Note that the station names returned by <code class="docutils literal notranslate"><span class="pre">find_files</span></code>
+differ slightly from those passed to the search query.</p>
+<p>If you don’t know the names of the different stations, you can visit the
+<a class="reference external" href="http://solardat.uoregon.edu/MonitoringStations.html">monitoring stations web page</a> or use the
+<a class="reference internal" href="api.html#solardat.search.fetch_stations" title="solardat.search.fetch_stations"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_stations()</span></code></a> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">solardat</span> <span class="kn">import</span> <span class="n">fetch_stations</span>
+
+<span class="n">all_stations</span> <span class="o">=</span> <span class="n">fetch_stations</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
+<p>Even for a single month and station, there will often be multiple files. These
+differ in the granularity of the measurements - the data can be given in
+one-minute, five-minute, fifteen-minute and hourly intervals, which is denoted
+by the fourth character in the filename. It is not possible to search by
+the interval length, but the results can easily be filtered.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># Select only data files with five-minute intervals, denoted</span>
+<span class="c1"># by &quot;F&quot;.</span>
+<span class="n">filepaths</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">station_name</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">search_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">filestem</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span>
+        <span class="n">interval_code</span> <span class="o">=</span> <span class="n">filestem</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">interval_code</span> <span class="o">==</span> <span class="s2">&quot;F&quot;</span><span class="p">:</span>
+            <span class="n">filepaths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="downloading">
+<h2>Downloading<a class="headerlink" href="#downloading" title="Permalink to this headline">¶</a></h2>
+<p>The dataset(s) can be pulled directly into memory, one at a time</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">solardat</span> <span class="kn">import</span> <span class="n">fetch_file</span>
+
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">filepaths</span><span class="p">:</span>
+    <span class="n">filestem</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span>
+    <span class="n">station_id</span><span class="p">,</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">fetch_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="n">datasets</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">filestem</span><span class="p">,</span> <span class="n">rows</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>or asynchronously</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">solardat</span> <span class="kn">import</span> <span class="n">fetch_many</span>
+<span class="kn">import</span> <span class="nn">aiohttp</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="n">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">async</span> <span class="k">with</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">await</span> <span class="n">fetch_file</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">filepaths</span><span class="p">)</span>
+
+ <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+ <span class="n">results</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The returned data is marshalled into dictionaries.</p>
+</div>
+<div class="section" id="compressed-files">
+<h2>Compressed Files<a class="headerlink" href="#compressed-files" title="Permalink to this headline">¶</a></h2>
+<p>A zipfile of the compressed data can also be downloaded and unpacked, instead
+downloading multiple files separately.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">solardat</span> <span class="kn">import</span> <span class="n">fetch_compressed</span><span class="p">,</span> <span class="n">find_compressed</span>
+
+<span class="c1"># Get download link to a zipfile of compressed search results.</span>
+<span class="n">download_path</span> <span class="o">=</span> <span class="n">find_compressed</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Eugene&quot;</span><span class="p">])</span>
+
+<span class="c1"># Download and decompress.</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">filestem</span><span class="p">,</span> <span class="n">station_id</span><span class="p">,</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">fetch_compressed</span><span class="p">(</span><span class="n">download_path</span><span class="p">):</span>
+    <span class="n">datasets</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">filestem</span><span class="p">,</span> <span class="n">rows</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note that this is a synchronous operation, and may take some time depending on
+how much data was requested.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="solardat: A Python client for solar irradiance data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

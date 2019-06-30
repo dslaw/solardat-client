@@ -1,0 +1,556 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; solardat-client 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> solardat-client
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#searching">Searching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#filtering">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#downloading">Downloading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#compressed-files">Compressed Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-solardat.search">Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-solardat.fetch">Fetch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-solardat.async_fetch">Async Fetch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-solardat.decode">Decode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-solardat.compressed">Compressed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-solardat.http">HTTP</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">solardat-client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-solardat.search">
+<span id="search"></span><h2>Search<a class="headerlink" href="#module-solardat.search" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="solardat.search.fetch_stations">
+<code class="sig-prename descclassname">solardat.search.</code><code class="sig-name descname">fetch_stations</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#solardat.search.fetch_stations" title="Permalink to this definition">¶</a></dt>
+<dd><p>List stations that can be searched for archival data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>stations</strong><span class="classifier">List[str]</span></dt><dd><p>Names of available stations.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stations</span> <span class="o">=</span> <span class="n">fetch_stations</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stations</span>
+<span class="go">[&#39;Aberdeen&#39;,</span>
+<span class="go"> &#39;Boise&#39;,</span>
+<span class="go"> &#39;Challis&#39;,</span>
+<span class="go"> ...]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-solardat.fetch">
+<span id="fetch"></span><h2>Fetch<a class="headerlink" href="#module-solardat.fetch" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="solardat.fetch.fetch_compressed">
+<code class="sig-prename descclassname">solardat.fetch.</code><code class="sig-name descname">fetch_compressed</code><span class="sig-paren">(</span><em class="sig-param">path: str</em><span class="sig-paren">)</span> &#x2192; Iterator[Tuple[str, int, List[Dict[str, Union[int, float, datetime.datetime]]]]]<a class="headerlink" href="#solardat.fetch.fetch_compressed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the contents of compressed archival data files.</p>
+<p>The entire zipfile is brought into memory and the contents of
+each archival data file returned.</p>
+<p>For the format of the returned data, see <a class="reference internal" href="#solardat.decode.read_raw" title="solardat.decode.read_raw"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_raw()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">str</span></dt><dd><p>URL path component to the archival data file to
+be retrieved.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>Iterator[Tuple[str, int, List[Row]]]</dt><dd><p>Generator over the archival data files contained in the
+compressed file. Each item corresponds to a single archival
+data file, with the filestem, station id and archival data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">end</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Eugene&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zipfile_path</span> <span class="o">=</span> <span class="n">find_compressed</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">stations</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">filestem</span><span class="p">,</span> <span class="n">station_id</span><span class="p">,</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">fetch_compressed</span><span class="p">(</span><span class="n">zipfile_path</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">filestem</span><span class="p">,</span> <span class="n">station_id</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">))</span>
+<span class="go">EUPF1801 94255 8928</span>
+<span class="go">EUPH1801 94255 744</span>
+<span class="go">EUPO1801 94255 44640</span>
+<span class="go">EUPQ1801 94255 2976</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="solardat.fetch.fetch_file">
+<code class="sig-prename descclassname">solardat.fetch.</code><code class="sig-name descname">fetch_file</code><span class="sig-paren">(</span><em class="sig-param">path: str</em><span class="sig-paren">)</span> &#x2192; Tuple[int, List[Dict[str, Union[int, float, datetime.datetime]]]]<a class="headerlink" href="#solardat.fetch.fetch_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the contents of an archival data file.</p>
+<p>For the format of the returned data, see <a class="reference internal" href="#solardat.decode.read_raw" title="solardat.decode.read_raw"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_raw()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">str</span></dt><dd><p>URL path component to the archival data file to
+be retrieved.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>station_id, rows</strong><span class="classifier">Tuple[int, List[OrderedDict]]</span></dt><dd><p>The archival data, as well as the station’s id.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;download/Archive/EUPQ1801.txt&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">station_id</span><span class="p">,</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">fetch_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">station_id</span>
+<span class="go">94255</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">OrderedDict([(&#39;ending_time&#39;, datetime.datetime(2018, 1, 1, 0, 15)),</span>
+<span class="go">             (&#39;1000&#39;, 0.0),</span>
+<span class="go">             (&#39;1000_FLAG&#39;, 12),</span>
+<span class="go">             (&#39;2010&#39;, 0.0),</span>
+<span class="go">             (&#39;2010_FLAG&#39;, 12),</span>
+<span class="go">             (&#39;2011_FLAG&#39;, 0.0),</span>
+<span class="go">             (&#39;2011_FLAG&#39;, 12),</span>
+<span class="go">             ...</span>
+<span class="go">             ])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="solardat.fetch.find_compressed">
+<code class="sig-prename descclassname">solardat.fetch.</code><code class="sig-name descname">find_compressed</code><span class="sig-paren">(</span><em class="sig-param">start: datetime.date, end: datetime.date, stations: List[str]</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#solardat.fetch.find_compressed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for archival data files and return the zipfile path.</p>
+<p>Get the path to download a temporary zipfile containing the
+archival data files returned by the query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start: date</strong></dt><dd><p>Start of the search interval. Only the month and year
+are used.</p>
+</dd>
+<dt><strong>end: date</strong></dt><dd><p>End of the search interval, inclusive. Only the month
+and year are used.</p>
+</dd>
+<dt><strong>stations: List[str]</strong></dt><dd><p>Stations to be included in the search results.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>path</strong><span class="classifier">str</span></dt><dd><p>URL path component to the zipfile.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Eugene&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">end</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zipfile_path</span> <span class="o">=</span> <span class="n">find_compressed</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">stations</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">zipfile_path</span>
+<span class="go">&#39;download/temp/67350228.zip&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="solardat.fetch.find_files">
+<code class="sig-prename descclassname">solardat.fetch.</code><code class="sig-name descname">find_files</code><span class="sig-paren">(</span><em class="sig-param">start: datetime.date, end: datetime.date, stations: List[str]</em><span class="sig-paren">)</span> &#x2192; Dict[str, List[str]]<a class="headerlink" href="#solardat.fetch.find_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for archival data files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>start: date</strong></dt><dd><p>Start of the search interval. Only the month and year
+are used.</p>
+</dd>
+<dt><strong>end: date</strong></dt><dd><p>End of the search interval, inclusive. Only the month
+and year are used.</p>
+</dd>
+<dt><strong>stations: List[str]</strong></dt><dd><p>Stations to be included in the search results.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>paths</strong><span class="classifier">Dict[str, List[str]]</span></dt><dd><p>URL path components to the data files matching the query,
+organized by station. The returned station name may not
+match the input station name.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Eugene&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">end</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2018</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paths</span> <span class="o">=</span> <span class="n">find_files</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">stations</span><span class="p">)</span>
+<span class="go">{&#39;Eugene, OR&#39;: [&#39;download/Archive/EUPF1801.txt&#39;,</span>
+<span class="go">  &#39;download/Archive/EUPF1802.txt&#39;,</span>
+<span class="go">  &#39;download/Archive/EUPH1801.txt&#39;,</span>
+<span class="go">  &#39;download/Archive/EUPH1802.txt&#39;,</span>
+<span class="go">  &#39;download/Archive/EUPO1801.txt&#39;,</span>
+<span class="go">  &#39;download/Archive/EUPO1802.txt&#39;,</span>
+<span class="go">  &#39;download/Archive/EUPQ1801.txt&#39;,</span>
+<span class="go">  &#39;download/Archive/EUPQ1802.txt&#39;]}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-solardat.async_fetch">
+<span id="async-fetch"></span><h2>Async Fetch<a class="headerlink" href="#module-solardat.async_fetch" title="Permalink to this headline">¶</a></h2>
+<p>Asynchronous versions of fetching data.</p>
+<dl class="function">
+<dt id="solardat.async_fetch.fetch_file">
+<em class="property">async </em><code class="sig-prename descclassname">solardat.async_fetch.</code><code class="sig-name descname">fetch_file</code><span class="sig-paren">(</span><em class="sig-param">session: aiohttp.client.ClientSession</em>, <em class="sig-param">path: str</em>, <em class="sig-param">**kwds</em><span class="sig-paren">)</span> &#x2192; Tuple[int, List[Dict[str, Union[int, float, datetime.datetime]]]]<a class="headerlink" href="#solardat.async_fetch.fetch_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the contents of an archival data file asynchronously.</p>
+<p>Asynchronous version of <a class="reference internal" href="#solardat.fetch.fetch_file" title="solardat.fetch.fetch_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch_file()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>session</strong><span class="classifier">aiohttp.ClientSession</span></dt><dd><p>The client session to use.</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">str</span></dt><dd><p>URL path component to the archival data file to
+be retrieved.</p>
+</dd>
+<dt><strong>**kwds</strong></dt><dd><p>Additional parameters to be used in the request.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>station_id, rows</strong><span class="classifier">Tuple[int, List[OrderedDict]]</span></dt><dd><p>The archival data, as well as the station’s id.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="solardat.async_fetch.fetch_many">
+<em class="property">async </em><code class="sig-prename descclassname">solardat.async_fetch.</code><code class="sig-name descname">fetch_many</code><span class="sig-paren">(</span><em class="sig-param">session: aiohttp.client.ClientSession, paths: Iterable[str], **kwds</em><span class="sig-paren">)</span> &#x2192; List[Tuple[str, int, List[Dict[str, Union[int, float, datetime.datetime]]]]]<a class="headerlink" href="#solardat.async_fetch.fetch_many" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get contents of multiple archival data files asynchronously.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>session</strong><span class="classifier">aiohttp.ClientSession</span></dt><dd><p>The client session to use.</p>
+</dd>
+<dt><strong>paths</strong><span class="classifier">Iterable[str]</span></dt><dd><p>URL path components to the archival data files to
+be retrieved.</p>
+</dd>
+<dt><strong>**kwds</strong></dt><dd><p>Additional parameters to be used in each request.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>List[Tuple[str, int, List[OrderedDict]]</dt><dd><p>Archival data from each file, as well as the station id. The
+file’s stem is returned for identification purposes.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aiohttp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">async</span> <span class="k">def</span> <span class="nf">driver</span><span class="p">(</span><span class="n">paths</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">async</span> <span class="k">with</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">fetch_many</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">paths</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">for</span> <span class="n">filestem</span><span class="p">,</span> <span class="n">station_id</span><span class="p">,</span> <span class="n">rows</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="nb">print</span><span class="p">(</span><span class="n">filestem</span><span class="p">,</span> <span class="n">station_id</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">))</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paths</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>   <span class="s2">&quot;download/Archive/EUPH1801.txt&quot;</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="s2">&quot;download/Archive/EUPH1802.txt&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">driver</span><span class="p">(</span><span class="n">paths</span><span class="p">))</span>
+<span class="go">EUPH1801 94255 744</span>
+<span class="go">EUPH1802 94255 672</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="solardat.async_fetch.wrap_async">
+<em class="property">async </em><code class="sig-prename descclassname">solardat.async_fetch.</code><code class="sig-name descname">wrap_async</code><span class="sig-paren">(</span><em class="sig-param">response: aiohttp.client_reqrep.ClientResponse</em><span class="sig-paren">)</span> &#x2192; requests.models.Response<a class="headerlink" href="#solardat.async_fetch.wrap_async" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a <code class="docutils literal notranslate"><span class="pre">requests</span></code> response from a <code class="docutils literal notranslate"><span class="pre">aiohttp</span></code> response.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">requests.Response</span></code> instance is built to provide synchronous
+access to the original response’s data. Note that the returned
+response does not have proper data for :attr:<code class="docutils literal notranslate"><span class="pre">elapsed</span></code> or
+:attr:<code class="docutils literal notranslate"><span class="pre">request</span></code>.</p>
+<p>The response will be consumed if it has not already.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-solardat.decode">
+<span id="decode"></span><h2>Decode<a class="headerlink" href="#module-solardat.decode" title="Permalink to this headline">¶</a></h2>
+<p>Decode archival data file.</p>
+<p>See <a class="reference external" href="http://solardat.uoregon.edu/ArchivalFiles.html">http://solardat.uoregon.edu/ArchivalFiles.html</a> for a description.</p>
+<dl class="function">
+<dt id="solardat.decode.parse_archival">
+<code class="sig-prename descclassname">solardat.decode.</code><code class="sig-name descname">parse_archival</code><span class="sig-paren">(</span><em class="sig-param">handle: Iterator[str]</em><span class="sig-paren">)</span> &#x2192; Tuple[int, List[Dict[str, Union[int, float, datetime.datetime]]]]<a class="headerlink" href="#solardat.decode.parse_archival" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse archival file data from a file-like object.</p>
+<p>For the format of the returned data, see <a class="reference internal" href="#solardat.decode.read_raw" title="solardat.decode.read_raw"><code class="xref py py-func docutils literal notranslate"><span class="pre">read_raw()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>handle</strong><span class="classifier">Iterator[str]</span></dt><dd><p>A file-like object used to iterate over the archival file
+data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>station_id, rows</strong><span class="classifier">Tuple[int, List[OrderedDict]]</span></dt><dd><p>The archival data, as well as the station’s id.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;EUPQ1801.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">station_id</span><span class="p">,</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">parse_archival</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="solardat.decode.read_raw">
+<code class="sig-prename descclassname">solardat.decode.</code><code class="sig-name descname">read_raw</code><span class="sig-paren">(</span><em class="sig-param">contents: str</em><span class="sig-paren">)</span> &#x2192; Tuple[int, List[Dict[str, Union[int, float, datetime.datetime]]]]<a class="headerlink" href="#solardat.decode.read_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Marshal the contents of an archival data file.</p>
+<p>The returned data uses the data element numbers as field
+names, where appropriate. Quality control flag field names
+are data element numbers with “_FLAG” appended, where the
+data element number indicates the measurement field that the
+flag corresponds to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>contents: str</strong></dt><dd><p>Archival data file contents as tab separated values.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>station_id, rows</strong><span class="classifier">Tuple[int, List[OrderedDict]]</span></dt><dd><p>The archival data, as well as the station’s id.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://solardat.uoregon.edu/download/Archive/EUPQ1801.txt&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">station_id</span><span class="p">,</span> <span class="n">rows</span> <span class="o">=</span> <span class="n">read_raw</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-solardat.compressed">
+<span id="compressed"></span><h2>Compressed<a class="headerlink" href="#module-solardat.compressed" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-solardat.http">
+<span id="http"></span><h2>HTTP<a class="headerlink" href="#module-solardat.http" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>solardat: A Python client for solar irradiance data &mdash; solardat-client 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> solardat-client
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#searching">Searching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#filtering">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#downloading">Downloading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#compressed-files">Compressed Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.search">Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.fetch">Fetch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.async_fetch">Async Fetch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.decode">Decode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.compressed">Compressed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.http">HTTP</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">solardat-client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>solardat: A Python client for solar irradiance data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="solardat-a-python-client-for-solar-irradiance-data">
+<h1>solardat: A Python client for solar irradiance data<a class="headerlink" href="#solardat-a-python-client-for-solar-irradiance-data" title="Permalink to this headline">¶</a></h1>
+<p>solardat-client provides programmatic access to solar radiation data collected
+and maintained by the <a class="reference external" href="http://solardat.uoregon.edu">University of Oregon Solar Radiation Monitoring
+Laboratory</a>, specifically their <a class="reference external" href="http://solardat.uoregon.edu/ArchivalFiles.html">archival data</a>, as well as utilities for
+reading the data.</p>
+<p>Python versions 3.6+ are supported.</p>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p>The UO Solar Radiation Monitoring Laboratory hosts a <a class="reference external" href="http://solardat.uoregon.edu/SelectArchival.html">web interface</a> which can be used to search
+for archival data files and perform a bulk download. If you are interested in
+generating a single, static data dump, then you should use the provided web
+interface. If, however, you want to perform a finer grained search, filter the
+results or programmatically fetch new datasets, the web interface may be
+lacking.</p>
+</div>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<p>solardat-client provides utilities for searching, downloading and parsing
+archival data files. Requests are cached in-memory.</p>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#searching">Searching</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#filtering">Filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#downloading">Downloading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#compressed-files">Compressed Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.search">Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.fetch">Fetch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.async_fetch">Async Fetch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.decode">Decode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.compressed">Compressed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-solardat.http">HTTP</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
